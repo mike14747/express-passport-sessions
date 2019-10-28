@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bs4_base.css">
+    <link rel="stylesheet" href="bs4_margins_padding.css">
+    <title>Express with Passport JS and Sessions</title>
+</head>
+
+<body>
+    <div class="m-4">
+        <h1 class="mb-4">Register</h1>
+        <form class="mb-4" action="/api/register" method="post">
+            <div class="m-2">
+                <label>Username:</label>
+                <input class="ml-2" type="text" id="username" name="username" required />
+            </div>
+            <div class="m-2">
+                <label>Password:</label>
+                <input class="ml-2" type="password" id="password" name="password" required />
+            </div>
+            <div class="m-2">
+                <input type="submit" value="Register" />
+            </div>
+        </form>
+        <p><a href="/">Homepage</a> | <a href="/login">Login</a></p>
+    </div>
+</body>
