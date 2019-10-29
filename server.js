@@ -26,7 +26,7 @@ const controllers = require('./controllers');
 app.use('/api', controllers);
 
 app.get('/', checkAuthenticated, function (req, res) {
-    res.sendFile(path.join(__dirname, 'views/index.html'));
+    res.sendFile(path.join(__dirname, 'views/home.html'));
 });
 
 app.get('/login', checkNotAuthenticated, function (req, res) {
@@ -53,7 +53,7 @@ app.get('/logging_out', checkAuthenticated, (req, res) => {
 });
 
 app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'views/index.html'));
+    res.sendFile(path.join(__dirname, 'views/home.html'));
 });
 
 function checkAuthenticated(req, res, next) {

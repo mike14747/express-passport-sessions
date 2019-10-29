@@ -16,6 +16,7 @@ router.get('/users/id/:id', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
+    // input validation is needed here for the username and password
     db.User.checkExistingUsername(req.body.username, (data) => {
         if (data.length === 0) {
             bcrypt.hash(req.body.password, saltRounds, function (err, hash) {

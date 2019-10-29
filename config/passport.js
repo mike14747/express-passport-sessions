@@ -1,6 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
-
 const connection = require('./connection');
 
 module.exports = function (passport) {
@@ -21,7 +20,6 @@ module.exports = function (passport) {
     //     });
     // });
 
-    // local strategy for logging in
     passport.use(new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
@@ -35,20 +33,19 @@ module.exports = function (passport) {
                 if (user.length === 0) {
                     return done(null, false, req.flash('loginMessage', 'Username not found!'));
                 }
-                // the username is found, so check the password
                 bcrypt.compare(password, user[0].password)
                     .then(function (res) {
                         if (!res) {
                             return done(null, false, req.flash('loginMessage', 'Wrong password!'));
                         }
+                        return done(null, user[0]);
                     })
                     .catch((err) => {
                         return done(err);
                     });
-                return done(null, user[0]);
             });
         } else if (req.user) {
-            done(null, req.user);
+            return done(null, req.user);
         }
     }));
 };
