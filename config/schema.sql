@@ -17,8 +17,15 @@ CREATE TABLE sessions (
 
 CREATE TABLE users (
     user_id int(6) NOT NULL AUTO_INCREMENT,
-    username varchar(20) NOT NULL UNIQUE,
-    password varchar(255) NOT NULL,
+    username varchar(30) NOT NULL UNIQUE,
+    password varchar(128) NOT NULL,
+    email varchar(60) DEFAULT 'test@test.com',
+    address varchar(80) DEFAULT '123 Main Street',
+    city varchar(60) DEFAULT 'Somecity',
+    state varchar(30) DEFAULT 'OH',
+    zip varchar(20) DEFAULT '44111',
+    country varchar(30) DEFAULT 'USA',
+    phone varchar(20) DEFAULT '800-555-1212',
     access_level tinyint(1) UNSIGNED DEFAULT 1,
     active boolean DEFAULT 1,
     PRIMARY KEY (user_id)

@@ -8,6 +8,7 @@ const path = require('path');
 const passport = require('passport');
 require('./config/passport')(passport);
 const session = require('express-session');
+const sessionStore = require('./config/sessionStore');
 
 app.use(express.static('views/css'));
 
@@ -15,10 +16,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
     secret: process.env.SESSION_SECRET,
+    store: sessionStore,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+        maxAge: 3600000,
+    },
 }));
-app.use(require('flash')());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -26,7 +30,8 @@ const controllers = require('./controllers');
 app.use('/api', controllers);
 
 app.get('/', checkAuthenticated, function (req, res) {
-    res.sendFile(path.join(__dirname, 'views/home.html'));
+    console.log(req.session);
+    res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
 app.get('/login', checkNotAuthenticated, function (req, res) {
@@ -39,7 +44,7 @@ app.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
 }));
 
-app.get('/register', (req, res) => {
+app.get('/register', checkNotAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/register.html'));
 });
 
@@ -53,7 +58,7 @@ app.get('/logging_out', checkAuthenticated, (req, res) => {
 });
 
 app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'views/home.html'));
+    res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
 function checkAuthenticated(req, res, next) {

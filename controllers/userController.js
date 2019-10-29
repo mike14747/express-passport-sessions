@@ -25,13 +25,11 @@ router.post('/register', (req, res) => {
                     if (result.insertId) {
                         res.redirect('/login');
                     } else {
-                        req.flash('registerMessage', 'Registration failed!!');
                         res.redirect('/register');
                     }
                 });
             });
         } else {
-            req.flash('registerMessage', 'Username is already taken!');
             res.redirect('/register');
         }
     });
