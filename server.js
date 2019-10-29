@@ -30,7 +30,6 @@ const controllers = require('./controllers');
 app.use('/api', controllers);
 
 app.get('/', checkAuthenticated, function (req, res) {
-    console.log(req.session);
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
