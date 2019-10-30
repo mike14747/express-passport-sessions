@@ -1,7 +1,7 @@
 {
   "name": "express-passport-sessions",
   "version": "1.0.0",
-  "description": "My default express setup with Passport JS and sessions.",
+  "description": "My default express setup with Passport JS and a MySQL session store.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
