@@ -2,7 +2,7 @@ const connection = require('../config/connection');
 
 const User = {
     getUserById: (id, cb) => {
-        const queryString = 'SELECT u.user_id, u.username, u.password, u.email, u.access_level, u.active FROM users AS u WHERE u.user_id=? && u.active=1 LIMIT 1;';
+        const queryString = 'SELECT u.user_id, u.username, u.email, u.address, u.city, u.state, u.zip, u.country, u.phone, u.access_level, u.active FROM users AS u WHERE u.user_id=? LIMIT 1;';
         const queryParams = [id];
         connection.execute(queryString, queryParams, (err, result) => {
             if (err) throw err;

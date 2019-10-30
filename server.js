@@ -6,7 +6,6 @@ const app = express();
 const path = require('path');
 
 const passport = require('passport');
-require('./config/passport')(passport);
 const session = require('express-session');
 const sessionStore = require('./config/sessionStore');
 
@@ -33,12 +32,6 @@ app.get('/', checkAuthenticated, function (req, res) {
 app.get('/login', checkNotAuthenticated, function (req, res) {
     res.sendFile(path.join(__dirname, 'views/login.html'));
 });
-
-// this is right from the passport docs
-app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-}));
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/register.html'));
