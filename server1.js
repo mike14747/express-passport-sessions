@@ -10,20 +10,6 @@ app.use(express.static('views/css'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// function checkAuthenticated(req, res, next) {
-//     if (req.isAuthenticated()) {
-//         return next();
-//     }
-//     res.redirect('/login');
-// }
-
-// function checkNotAuthenticated(req, res, next) {
-//     if (req.isAuthenticated()) {
-//         return res.redirect('/');
-//     }
-//     next();
-// }
-
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
@@ -34,11 +20,6 @@ app.get('/login', (req, res) => {
 
 app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/register.html'));
-});
-
-app.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/login');
 });
 
 const controllers = require('./controllers');
