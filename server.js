@@ -26,9 +26,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const controllers = require('./controllers');
-app.use('/api', controllers);
-
 app.get('/', checkAuthenticated, function (req, res) {
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
@@ -48,13 +45,12 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 });
 
 app.get('/logout', checkAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, 'views/logout.html'));
-});
-
-app.get('/logging_out', checkAuthenticated, (req, res) => {
     req.logout();
     res.redirect('/login');
 });
+
+const controllers = require('./controllers');
+app.use('/api', controllers);
 
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'views/index.html'));

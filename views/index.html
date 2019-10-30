@@ -12,8 +12,12 @@
 <body>
     <div class="m-4">
         <h1 class="mb-4">Homepage</h1>
-        <p>Welcome to the Homepage!!</p>
-        <p><a href="/logout">Log Out</a></p>
+        <p class="mb-5">Welcome to the Homepage!!</p>
+        <form class="mb-4" action="/api/auth/logout" method="get">
+            <div class="m-2">
+                <input type="submit" value="Log Out" />
+            </div>
+        </form>
     </div>
 </body>
 
