@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS testDB2;
-CREATE DATABASE testDB2;
-USE testDB2;
+DROP DATABASE IF EXISTS testDB;
+CREATE DATABASE testDB;
+USE testDB;
 
 set foreign_key_checks=0;
 
