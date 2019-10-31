@@ -5,7 +5,7 @@ let connection;
 if (process.env.NODE_ENV === 'production') {
     connection = mysql.createConnection({
         JAWSDB_URL: process.env.JAWSDB_URL,
-        multipleStatements: true,
+        // multipleStatements: true,
     });
 } else {
     connection = mysql.createConnection({
