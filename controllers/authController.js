@@ -51,34 +51,34 @@ router.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-}));
+// router.post('/login', passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/login',
+// }));
 
-router.post('/register', (req, res) => {
-    // input validation is needed here for the username and password
-    if (req.body.username.length < 6 || req.body.password.length < 6) {
-        res.redirect('/register');
-    } else {
-        const saltRounds = 10;
-        User.checkExistingUsername(req.body.username, (data) => {
-            if (data.length === 0) {
-                bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-                    if (err) throw err;
-                    User.addNewUser(req.body.username, hash, (result) => {
-                        if (result.insertId) {
-                            res.redirect('/login');
-                        } else {
-                            res.redirect('/register');
-                        }
-                    });
-                });
-            } else {
-                res.redirect('/register');
-            }
-        });
-    }
-});
+// router.post('/register', (req, res) => {
+//     // input validation is needed here for the username and password
+//     if (req.body.username.length < 6 || req.body.password.length < 6) {
+//         res.redirect('/register');
+//     } else {
+//         const saltRounds = 10;
+//         User.checkExistingUsername(req.body.username, (data) => {
+//             if (data.length === 0) {
+//                 bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+//                     if (err) throw err;
+//                     User.addNewUser(req.body.username, hash, (result) => {
+//                         if (result.insertId) {
+//                             res.redirect('/login');
+//                         } else {
+//                             res.redirect('/register');
+//                         }
+//                     });
+//                 });
+//             } else {
+//                 res.redirect('/register');
+//             }
+//         });
+//     }
+// });
 
 module.exports = router;
