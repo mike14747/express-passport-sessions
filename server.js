@@ -14,7 +14,7 @@ app.use(express.static('views/css'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: 'testing_this_secret',
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
