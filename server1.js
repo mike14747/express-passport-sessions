@@ -24,11 +24,11 @@ function checkNotAuthenticated(req, res, next) {
     next();
 }
 
-app.get('/', checkAuthenticated, (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
-app.get('/login', checkNotAuthenticated, (req, res) => {
+app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/login.html'));
 });
 
