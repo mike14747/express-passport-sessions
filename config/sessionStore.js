@@ -17,6 +17,6 @@ if (process.env.NODE_ENV === 'production') {
     };
 }
 
-const sessionStore = new MySQLStore(sessionOptions, connection.promise);
+const sessionStore = new MySQLStore(connection.promise);
 
 module.exports = sessionStore;
