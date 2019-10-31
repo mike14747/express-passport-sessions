@@ -42,7 +42,7 @@ app.get('/logout', checkAuthenticated, (req, res) => {
 });
 
 const authController = require('./controllers/authController');
-app.use('/api', authController);
+app.use(authController);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'));
