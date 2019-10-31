@@ -41,8 +41,8 @@ app.get('/logout', checkAuthenticated, (req, res) => {
     res.redirect('/login');
 });
 
-const authController = require('./controllers/authController');
-app.use(authController);
+const userController = require('./controllers/userController');
+app.use(userController);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'));
