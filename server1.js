@@ -5,6 +5,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+const connection = require('./config/connection');
+console.log(connection);
+
 app.use(express.static('views/css'));
 
 app.use(express.urlencoded({ extended: true }));
