@@ -27,16 +27,16 @@ app.use(passport.session());
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        next();
+        return next();
     }
-    res.redirect('/login');
+    return res.redirect('/login');
 }
 
 function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        res.redirect('/');
+        return res.redirect('/');
     }
-    next();
+    return next();
 }
 
 app.get('/', checkAuthenticated, (req, res) => {
