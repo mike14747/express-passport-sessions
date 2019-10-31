@@ -4,6 +4,7 @@ const { PORT } = process.env;
 const express = require('express');
 const app = express();
 const path = require('path');
+const controllers = require('./controllers/index');
 
 app.use(express.static('views/css'));
 
@@ -41,7 +42,6 @@ app.get('/logout', checkAuthenticated, (req, res) => {
     res.redirect('/login');
 });
 
-const controllers = require('./controllers');
 app.use('/api', controllers);
 
 app.get('*', (req, res) => {
