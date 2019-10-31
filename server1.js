@@ -4,13 +4,11 @@ const { PORT } = process.env;
 const express = require('express');
 const app = express();
 const path = require('path');
-const controllers = require('./controllers/index');
 
 app.use(express.static('views/css'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/api', controllers);
 
 function checkAuthenticated(req, res, next) {
     // if (req.isAuthenticated()) {
@@ -42,6 +40,9 @@ app.get('/logout', checkAuthenticated, (req, res) => {
     req.logout();
     res.redirect('/login');
 });
+
+const authController = require('./controllers/authController');
+app.use('/api', authController);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'));
