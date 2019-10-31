@@ -5,8 +5,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-const connection = require('./config/connection');
-console.log(connection);
+// const connection = require('./config/connection');
+// console.log(connection);
 
 app.use(express.static('views/css'));
 
@@ -25,8 +25,8 @@ app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/register.html'));
 });
 
-const controllers = require('./controllers');
-app.use('/api', controllers);
+// const controllers = require('./controllers');
+// app.use('/api', controllers);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'));
