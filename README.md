@@ -2,7 +2,7 @@
 
 ## What is this project?
 * Sample application of a **Passport JS** authentication system.
-* It includes: login/logout, sessions and a MySQL session store for persistent logged in status.
+* It includes: login/logout, local strategy, sessions and a MySQL session store for persistent logged in status.
 * It contains only 3 barebones pages (Homepage, Login and Register).
 * You can only access the homepage if you're logged in... otherwise you're redirected to the login page.
 * There isn't any input validation on the register page's input fields, but the controller will only accept username and password lengths of 6 or greater.
