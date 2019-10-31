@@ -24,22 +24,22 @@ function checkNotAuthenticated(req, res, next) {
     next();
 }
 
-app.get('/', checkAuthenticated, (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
-app.get('/login', checkNotAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, 'views/login.html'));
-});
+// app.get('/login', checkNotAuthenticated, (req, res) => {
+//     res.sendFile(path.join(__dirname, 'views/login.html'));
+// });
 
-app.get('/register', checkNotAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, 'views/register.html'));
-});
+// app.get('/register', checkNotAuthenticated, (req, res) => {
+//     res.sendFile(path.join(__dirname, 'views/register.html'));
+// });
 
-app.get('/logout', checkAuthenticated, (req, res) => {
-    req.logout();
-    res.redirect('/login');
-});
+// app.get('/logout', checkAuthenticated, (req, res) => {
+//     req.logout();
+//     res.redirect('/login');
+// });
 
 const controllers = require('./controllers/index.js');
 app.use('/api', controllers);
