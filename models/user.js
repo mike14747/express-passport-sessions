@@ -6,7 +6,7 @@ const User = {
         const queryParams = [id];
         connection.execute(queryString, queryParams, (err, result) => {
             if (err) throw err;
-            return cb(result);
+            cb(result);
         });
     },
     getUserByUsernameForPassport: (username, cb) => {
@@ -14,9 +14,9 @@ const User = {
         const queryParams = [username];
         connection.execute(queryString, queryParams, (err, result) => {
             if (err) {
-                return cb(err, result);
+                cb(err, result);
             }
-            return cb(null, result);
+            cb(null, result);
         });
     },
     checkExistingUsername: (username, cb) => {
@@ -24,7 +24,7 @@ const User = {
         const queryParams = [username];
         connection.execute(queryString, queryParams, (err, result) => {
             if (err) throw err;
-            return cb(result);
+            cb(result);
         });
     },
     addNewUser: (username, password, cb) => {
@@ -32,7 +32,7 @@ const User = {
         const queryParams = [username, password];
         connection.execute(queryString, queryParams, (err, result) => {
             if (err) throw err;
-            return cb(result);
+            cb(result);
         });
     },
 };
