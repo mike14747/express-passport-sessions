@@ -5,6 +5,7 @@
 * It includes: login/logout, sessions and a MySQL session store for persistent logged in status.
 * It contains only 3 barebones pages (Homepage, Login and Register).
 * You can only access the homepage if you're logged in... otherwise you're redirected to the login page.
+* There isn't any input validation on the register page's input fields, but the controller will only accept username and password lengths of 6 or greater.
 * There is a test database included with a users and sessions tables and a single row of data in the users table... just for testing.
 * It includes the npm dependencies: **bcrypt** (for hashing and comparing plain text passwords), **dotenv** (for managing environmental variables), **express** (the server this project uses), **express-mysql-session** (for managing the MySQL session store), **express-session** (for managing Passport's sessions), **if-env** (used to check to see if certain environemntal variables are present), **mysql2** (the database driver), **passport** (the main authentication package), **passport-local** (for utilizing Passport's local strategy).
 * Several devDependencies are installed... mostly for linting.
