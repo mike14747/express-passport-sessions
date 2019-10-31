@@ -41,7 +41,7 @@ app.get('/logout', checkAuthenticated, (req, res) => {
     res.redirect('/login');
 });
 
-const controllers = require('./controllers');
+const controllers = require('./controllers/index.js');
 app.use('/api', controllers);
 
 app.get('*', (req, res) => {
