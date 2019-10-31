@@ -5,10 +5,24 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+const passport = require('passport');
+const session = require('express-session');
+// const sessionStore = require('./config/sessionStore');
+
 app.use(express.static('views/css'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(session({
+    secret: 'testingthissecret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 3600000,
+    },
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
