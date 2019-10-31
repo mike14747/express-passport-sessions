@@ -14,14 +14,13 @@ function checkAuthenticated(req, res, next) {
     // if (req.isAuthenticated()) {
     //     next();
     // }
-    console.log('this is inside the function');
     res.redirect('/login');
 }
 
 function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        res.redirect('/');
-    }
+    // if (req.isAuthenticated()) {
+    //     res.redirect('/');
+    // }
     next();
 }
 
@@ -29,12 +28,17 @@ app.get('/', checkAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
-app.get('/login', (req, res) => {
+app.get('/login', checkNotAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/login.html'));
 });
 
-app.get('/register', (req, res) => {
+app.get('/register', checkNotAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/register.html'));
+});
+
+app.get('/logout', checkAuthenticated, (req, res) => {
+    req.logout();
+    res.redirect('/login');
 });
 
 const controllers = require('./controllers');
