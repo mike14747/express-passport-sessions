@@ -11,9 +11,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        next();
-    }
+    // if (req.isAuthenticated()) {
+    //     next();
+    // }
+    console.log('this is inside the function');
     res.redirect('/login');
 }
 
