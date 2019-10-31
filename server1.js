@@ -6,8 +6,6 @@ const app = express();
 const path = require('path');
 
 app.use(express.static('views/css'));
-const controllers = require('./controllers');
-app.use('/api', controllers);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -37,6 +35,9 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/register.html'));
 });
+
+const controllers = require('./controllers');
+app.use('/api', controllers);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'));
