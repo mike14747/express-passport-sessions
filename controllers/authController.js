@@ -42,6 +42,7 @@ passport.use(new LocalStrategy({
 // end 'used by passport.authenticate on the /login POST route'
 
 // all these routes point to the api/auth folder as specified in server.js and controllers/index.js
+
 router.route('/').get((req, res) => {
     res.status(200).send('Sending this from the /auth route root!');
 });

@@ -4,7 +4,6 @@ let connection;
 
 if (process.env.JAWSDB_URL) {
     const url = new URL(process.env.JAWSDB_URL);
-    // connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection = mysql.createConnection({
         host: url.hostname,
         port: url.port,
