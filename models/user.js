@@ -14,9 +14,9 @@ const User = {
         const queryParams = [username];
         connection.execute(queryString, queryParams, (err, result) => {
             if (err) {
-                return cb(err, result);
+                return cb(err, false);
             }
-            return cb(null, result);
+            return cb(null, result[0]);
         });
     },
     checkExistingUsername: (username, cb) => {

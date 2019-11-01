@@ -24,12 +24,12 @@ passport.use(new LocalStrategy({
             if (user.length === 0) {
                 return done(null, false);
             }
-            bcrypt.compare(password, user[0].password)
+            bcrypt.compare(password, user.password)
                 .then(function (res) {
                     if (!res) {
                         return done(null, false);
                     }
-                    return done(null, user[0]);
+                    return done(null, user);
                 })
                 .catch((err) => {
                     return done(err);
