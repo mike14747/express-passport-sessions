@@ -19,18 +19,18 @@ passport.use(new LocalStrategy({
     passReqToCallback: true,
 }, function (req, username, password, done) {
     if (!req.user) {
-        User.getUserByUsernameForPassport(username, (err, checkingUser) => {
+        User.getUserByUsernameForPassport(username, (err, submittedUsername) => {
             if (err) { return done(err); }
-            if (checkingUser.length === 0) {
+            if (submittedUsername.length === 0) {
                 return done(null, false);
             }
-            const foundUser = checkingUser[0];
-            bcrypt.compare(password, foundUser.password)
+            const foundUsername = submittedUsername[0];
+            bcrypt.compare(password, foundUsername.password)
                 .then(function (res) {
                     if (!res) {
                         return done(null, false);
                     }
-                    return done(null, foundUser);
+                    return done(null, foundUsername);
                 })
                 .catch((err) => {
                     return done(err);
