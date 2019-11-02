@@ -19,17 +19,18 @@ passport.use(new LocalStrategy({
     passReqToCallback: true,
 }, function (req, username, password, done) {
     if (!req.user) {
-        User.getUserByUsernameForPassport(username, (err, user) => {
+        User.getUserByUsernameForPassport(username, (err, checkingUser) => {
             if (err) { return done(err); }
-            if (user.length === 0) {
+            if (checkingUser.length === 0) {
                 return done(null, false);
             }
-            bcrypt.compare(password, user.password)
+            const foundUser = checkingUser[0];
+            bcrypt.compare(password, foundUser.password)
                 .then(function (res) {
                     if (!res) {
                         return done(null, false);
                     }
-                    return done(null, user);
+                    return done(null, foundUser);
                 })
                 .catch((err) => {
                     return done(err);
@@ -41,7 +42,7 @@ passport.use(new LocalStrategy({
 }));
 // end 'used by passport.authenticate on the /login POST route'
 
-// all these routes point to the api/auth folder as specified in server.js and controllers/index.js
+// all these routes point to api/auth as specified in server.js and controllers/index.js
 
 router.route('/').get((req, res) => {
     res.status(200).send('Sending this from the /auth route root!');

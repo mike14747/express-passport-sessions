@@ -16,7 +16,7 @@ const User = {
             if (err) {
                 cb(err, false);
             }
-            cb(null, result[0]);
+            cb(null, result);
         });
     },
     checkExistingUsername: (username, cb) => {
