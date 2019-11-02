@@ -14,6 +14,7 @@ app.use(express.static('views/css'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
+    key: process.env.COOKIE_KEY,
     secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
