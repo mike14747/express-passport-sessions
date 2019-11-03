@@ -14,7 +14,7 @@ app.use(express.static('views/css'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
-    key: process.env.COOKIE_KEY,
+    key: 'eps',
     secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
@@ -41,6 +41,7 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 app.get('/', checkAuthenticated, (req, res) => {
+    // console.log(req.user.username);
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 

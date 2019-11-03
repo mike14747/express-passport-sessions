@@ -9,6 +9,14 @@ const User = {
             cb(result);
         });
     },
+    getUserByIdForPassport: (id, cb) => {
+        const queryString = 'SELECT u.user_id, u.username, u.access_level FROM users AS u WHERE u.user_id=? LIMIT 1;';
+        const queryParams = [id];
+        connection.execute(queryString, queryParams, (err, result) => {
+            if (err) throw err;
+            cb(null, result);
+        });
+    },
     getUserByUsernameForPassport: (username, cb) => {
         const queryString = 'SELECT u.user_id, u.username, u.password, u.email, u.access_level FROM users AS u WHERE username=? LIMIT 1;';
         const queryParams = [username];

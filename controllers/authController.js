@@ -7,30 +7,35 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 passport.serializeUser((user, done) => {
-    const userSession = { id: user.user_id, username: user.username, email: user.email, access_level: user.access_level };
-    done(null, userSession);
-});
-passport.deserializeUser(function (user, done) {
     done(null, user);
+});
+passport.deserializeUser((id, done) => {
+    User.getUserByIdForPassport(id, (err, returnedUserInfo) => {
+        const user = { id: returnedUserInfo[0].user_id, username: returnedUserInfo[0].username, access_level: returnedUserInfo[0].access_level };
+        console.log(user);
+        done(err, user);
+    });
 });
 passport.use(new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: true,
-}, function (req, username, password, done) {
+}, (req, username, password, done) => {
     if (!req.user) {
-        User.getUserByUsernameForPassport(username, (err, submittedUsername) => {
-            if (err) { return done(err); }
-            if (submittedUsername.length === 0) {
+        User.getUserByUsernameForPassport(username, (err, returnedUserCredentials) => {
+            if (err) {
+                return done(err);
+            }
+            if (returnedUserCredentials.length === 0) {
                 return done(null, false);
             }
-            const foundUsername = submittedUsername[0];
-            bcrypt.compare(password, foundUsername.password)
-                .then(function (res) {
+            bcrypt.compare(password, returnedUserCredentials[0].password)
+                .then((res) => {
                     if (!res) {
                         return done(null, false);
                     }
-                    return done(null, foundUsername);
+                    const validatedUser = returnedUserCredentials[0];
+                    return done(null, validatedUser.user_id);
                 })
                 .catch((err) => {
                     return done(err);
@@ -70,13 +75,19 @@ router.post('/register', (req, res) => {
                     if (err) throw err;
                     User.addNewUser(req.body.username, hash, (result) => {
                         if (result.insertId) {
-                            res.redirect('/login');
+                            // res.redirect('/login');
+                            // or to have a newly registered user auto login
+                            passport.authenticate('local')(req, res, () => {
+                                res.redirect('/');
+                            });
                         } else {
+                            // the registration info wasn't added to the database
                             res.redirect('/register');
                         }
                     });
                 });
             } else {
+                // that username is already taken
                 res.redirect('/register');
             }
         });
