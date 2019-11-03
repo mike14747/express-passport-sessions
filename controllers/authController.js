@@ -12,7 +12,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
     User.getUserByIdForPassport(id, (err, returnedUserInfo) => {
         const user = { id: returnedUserInfo[0].user_id, username: returnedUserInfo[0].username, access_level: returnedUserInfo[0].access_level };
-        console.log(user);
         done(err, user);
     });
 });
@@ -23,17 +22,11 @@ passport.use(new LocalStrategy({
 }, (req, username, password, done) => {
     if (!req.user) {
         User.getUserByUsernameForPassport(username, (err, returnedUserCredentials) => {
-            if (err) {
-                return done(err);
-            }
-            if (returnedUserCredentials.length === 0) {
-                return done(null, false);
-            }
+            if (err) return done(err);
+            if (returnedUserCredentials.length === 0) return done(null, false);
             bcrypt.compare(password, returnedUserCredentials[0].password)
                 .then((res) => {
-                    if (!res) {
-                        return done(null, false);
-                    }
+                    if (!res) return done(null, false);
                     const validatedUser = returnedUserCredentials[0];
                     return done(null, validatedUser.user_id);
                 })
