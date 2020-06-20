@@ -5,26 +5,14 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-const passport = require('passport');
-const session = require('express-session');
-const sessionStore = require('./config/sessionStore');
+const connectionPool = require('./config/connectionPool');
 
-app.use(express.static('views/css'));
+app.use(require('./passport/expressSession'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(session({
-    key: 'eps',
-    secret: process.env.SESSION_SECRET,
-    store: sessionStore,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 3600000,
-    },
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+
+app.use(express.static('views/css'));
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -40,27 +28,35 @@ function checkNotAuthenticated(req, res, next) {
     return next();
 }
 
-app.get('/', checkAuthenticated, (req, res) => {
-    // console.log(req.user.username);
-    res.sendFile(path.join(__dirname, 'views/index.html'));
-});
-
-app.get('/login', checkNotAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, 'views/login.html'));
-});
-
-app.get('/register', checkNotAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, 'views/register.html'));
-});
-
-const controllers = require('./controllers');
-app.use('/api', controllers);
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views/index.html'));
-});
-
-app.listen(PORT, () => {
-    // eslint-disable-next-line no-console
-    console.log(`Server now listening on PORT ${PORT}!`);
-});
+connectionPool.mysqlConnect()
+    .then(() => {
+        // these functions need to be called only after connecting to mysql since they use the connection pool
+        const passport = require('./passport/passportFunctions');
+        app.use(passport.initialize());
+        app.use(passport.session());
+        app.use('/api', require('./controllers'));
+    })
+    .catch((error) => {
+        console.error('Failed to connect to the database!\n' + error);
+        app.get('/api', (req, res) => {
+            res.status(500).send('There is no connection to MySQL!');
+        });
+    })
+    .finally(() => {
+        app.get('/', checkAuthenticated, (req, res) => {
+            // console.log(req.user.username);
+            res.sendFile(path.join(__dirname, 'views/index.html'));
+        });
+        app.get('/login', checkNotAuthenticated, (req, res) => {
+            res.sendFile(path.join(__dirname, 'views/login.html'));
+        });
+        app.get('/register', checkNotAuthenticated, (req, res) => {
+            res.sendFile(path.join(__dirname, 'views/register.html'));
+        });
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(__dirname, 'views/index.html'));
+        });
+        app.listen(PORT, () => {
+            console.log('Server is listening on port ' + PORT);
+        });
+    });

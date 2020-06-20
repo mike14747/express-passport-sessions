@@ -3,16 +3,17 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="bs4_base.css">
-    <link rel="stylesheet" href="bs4_margins_padding.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="bs4_base.css">
+    <link rel="stylesheet" type="text/css" href="bs4_margins_padding.css">
     <title>Express with Passport JS and a Session Store</title>
 </head>
 
 <body>
     <div class="m-4">
         <h1 class="mb-4">Homepage</h1>
-        <p class="mb-5">Welcome to the Homepage!</p>
+        <p class="mb-3">Welcome to the Homepage!</p>
+        <p class="mb-5">You can only be here because you are logged in.</p>
         <form class="mb-4" action="/api/auth/logout" method="get">
             <div class="m-2">
                 <input type="submit" value="Log Out" />

@@ -1,28 +1,29 @@
-const mysql = require('mysql2');
+const pool = require('../config/connectionPool').getDb();
 
-let connection;
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+
+let sessionOptions;
 
 if (process.env.JAWSDB_URL) {
     const url = new URL(process.env.JAWSDB_URL);
-    connection = mysql.createConnection({
+    sessionOptions = {
         host: url.hostname,
         port: url.port,
         user: url.username,
         password: url.password,
         database: url.pathname.replace('/', ''),
-        multipleStatements: true,
-    });
+    };
 } else {
-    connection = mysql.createConnection({
+    sessionOptions = {
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
         user: process.env.DB_USER,
         password: process.env.DB_PW,
         database: process.env.DB_NAME,
-        multipleStatements: true,
-    });
+    };
 }
 
-connection.connect();
+const sessionStore = new MySQLStore(sessionOptions, pool);
 
-module.exports = connection;
+module.exports = sessionStore;
