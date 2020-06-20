@@ -5,7 +5,7 @@ let pool;
 const mysqlConnect = async () => {
     if (process.env.JAWSDB_URL) {
         const url = new URL(process.env.JAWSDB_URL);
-        pool = mysql.createConnection({
+        pool = mysql.createPool({
             host: url.hostname,
             port: url.port,
             user: url.username,
