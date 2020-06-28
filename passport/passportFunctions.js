@@ -13,7 +13,7 @@ passport.deserializeUser(async (id, done) => {
         const [data, error] = await User.getUserByIdForPassport({ id: id });
         if (!data) return done(error);
         if (data.length === 1) {
-            const user = { id: data[0].user_id, username: data[0].username };
+            const user = { id: data[0].user_id, username: data[0].username, testProperty: 'testing this out from deserializeUser' };
             return done(null, user);
         } else {
             return done(null, false, { message: 'Could not find a valid user!' });
