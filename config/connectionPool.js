@@ -2,7 +2,7 @@ const mysql = require('mysql2/promise');
 
 let pool;
 
-const mysqlConnect = async () => {
+const mysqlConnect = () => {
     if (process.env.JAWSDB_URL) {
         const url = new URL(process.env.JAWSDB_URL);
         pool = mysql.createPool({
@@ -29,7 +29,11 @@ const mysqlConnect = async () => {
             multipleStatements: true,
         });
     }
-    return pool;
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT 1', (error, result) => {
+            error ? reject(error) : resolve(result);
+        });
+    });
 };
 
 const getDb = () => pool;
