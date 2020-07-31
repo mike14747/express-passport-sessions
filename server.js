@@ -44,7 +44,6 @@ connectionPool.mysqlConnect()
     })
     .finally(() => {
         app.get('/', checkAuthenticated, (req, res) => {
-            console.log('\n' + req.user.testProperty + '\n');
             res.sendFile(path.join(__dirname, 'views/index.html'));
         });
         app.get('/login', checkNotAuthenticated, (req, res) => {
