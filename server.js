@@ -55,7 +55,8 @@ connectionPool.mysqlConnect()
         app.get('*', (req, res) => {
             res.sendFile(path.join(__dirname, 'views/index.html'));
         });
-        app.listen(PORT, () => {
-            console.log('Server is listening on port ' + PORT);
-        });
     });
+
+app.listen(PORT, () => {
+    console.log('Server is listening on port ' + PORT);
+});
