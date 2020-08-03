@@ -44,7 +44,6 @@ git clone git@github.com:mike14747/express-passport-sessions.git
 ```
 2. Create a **.env** file in the root folder with the following content:
  ```
-PORT=3000
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
