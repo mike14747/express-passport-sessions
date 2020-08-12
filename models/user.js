@@ -1,4 +1,4 @@
-const pool = require('../config/connectionPool.js').getDb();
+const pool = require('../config/connectionPool.js');
 
 const User = {
     getUserById: async (paramsObj) => {
