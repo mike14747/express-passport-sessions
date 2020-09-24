@@ -8,7 +8,7 @@ set foreign_key_checks=0;
 
 CREATE TABLE sessions (
     session_id varchar(128) COLLATE utf8mb4_bin NOT NULL,
-    expires int(11) unsigned NOT NULL,
+    expires int unsigned NOT NULL,
     data mediumtext COLLATE utf8mb4_bin,
     PRIMARY KEY (session_id)
 );
@@ -16,7 +16,7 @@ CREATE TABLE sessions (
 -- --------------------------------------------------------
 
 CREATE TABLE users (
-    user_id int(6) NOT NULL AUTO_INCREMENT,
+    user_id int NOT NULL AUTO_INCREMENT,
     username varchar(30) NOT NULL UNIQUE,
     password varchar(128) NOT NULL,
     email varchar(60) DEFAULT 'test@test.com',
@@ -26,7 +26,7 @@ CREATE TABLE users (
     zip varchar(20) DEFAULT '44111',
     country varchar(30) DEFAULT 'USA',
     phone varchar(20) DEFAULT '800-555-1212',
-    access_level tinyint(1) UNSIGNED DEFAULT 1,
+    access_level tinyint UNSIGNED DEFAULT 1,
     active boolean DEFAULT 1,
     PRIMARY KEY (user_id)
 );
