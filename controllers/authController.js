@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const passport = require('../passport/passportFunctions');
 const User = require('../models/user');
-
 const bcryptjs = require('bcryptjs');
 
 router.route('/').get((req, res) => {
